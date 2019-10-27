@@ -2,12 +2,12 @@
 
 {% block head %}
     {{ super() }}
-    <title>{% block title %}{% endblock %} - MyFlask</title>
+    <title>{% block title %}{% endblock %} - RestaurantRecommender</title>
 {% endblock %}
 
 {% block content %}
 
-<div id="mapid" style="width: 600px; height: 400px; margin-left: 30px"></div>
+<div id="mapid" style="width: 600px; height: 400px; margin-left: 30px; margin-top: 30px"></div>
 <script>
 
 	var mymap = L.map('mapid').setView([52.505, 21.00], 13);
@@ -19,8 +19,20 @@
 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		id: 'mapbox.streets'
 	}).addTo(mymap);
+	var marker = L.marker({{ coords }}).addTo(mymap);
 
 	mymap.on('click', onMapClick);
+
+	var popup = L.popup();
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(mymap);
+    }
+
+    mymap.on('click', onMapClick);
 
 </script>
 {% endblock %}

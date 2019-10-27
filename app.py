@@ -13,15 +13,16 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db) # this
 Bootstrap(app)
 
+from models import *
+
 
 @app.route('/')
-def hello_world():
-    return render_template('restaurants.html')
-
-
-@app.route('/restauracje')
 def show_restaurants():
-    return render_template('map.html')
+    restaurants = Restaurant.query.all()
+    info = [[[restaurant.lon, restaurant.lat], restaurant.name] for restaurant in restaurants][-1]
+    coords = info[0]
+    name = info[1]
+    return render_template('restaurants.html', coords=coords)
 
 
 if "__main__" == __name__:

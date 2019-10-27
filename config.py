@@ -7,7 +7,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = 'postgresql://cysia:marcysia@localhost:5432/mydb'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///C:\cysia\leaflet-explorer\\mydb.db'
 
 
 class ProductionConfig(Config):
